@@ -53,7 +53,7 @@ int main()
 	//meniu utilizator
 	//fara erori indiferent de input
 
-	int cnp[13];
+	/*int cnp[13];
 	cnp[0] = 5;
 	cnp[1] = 2;
 	cnp[2] = 3;
@@ -66,7 +66,7 @@ int main()
 	cnp[9] = 3;
 	cnp[10] = 4;
 	cnp[11] = 5;
-	cnp[12] = 6;
+	cnp[12] = 6;*/
 
 	//Bilet b("film", cnp);
 	//cout << "nr bilete total: " << b.getBileteTot() << endl;
@@ -101,8 +101,8 @@ int main()
 	cout << "b.rez =" << b.getRez() << endl;
 	cout << "rez= " << rez;*/
 
-	Eveniment e;
-	cout << e;
+	/*Eveniment e;
+	cout << e;*/
 
 	return 0;
 
