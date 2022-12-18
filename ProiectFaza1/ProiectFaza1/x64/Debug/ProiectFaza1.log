@@ -1,22 +1,17 @@
 ﻿  Bilet.cpp
 C:\Users\xxxme\Desktop\ASE\An2_Sem1\Poo\ProiecteVisual\ProiectFaza1\ProiectFaza1\Bilet.cpp(3,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  Eveniment.cpp
-C:\Users\xxxme\Desktop\ASE\An2_Sem1\Poo\ProiecteVisual\ProiectFaza1\ProiectFaza1\Eveniment.cpp(3,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\Users\xxxme\Desktop\ASE\An2_Sem1\Poo\ProiecteVisual\ProiectFaza1\ProiectFaza1\Eveniment.h(4,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\Users\xxxme\Desktop\ASE\An2_Sem1\Poo\ProiecteVisual\ProiectFaza1\ProiectFaza1\Eveniment.h(17): warning C4091: 'typedef ': ignored on left of 'Eveniment::Data' when no variable is declared
   Locatie.cpp
 C:\Users\xxxme\Desktop\ASE\An2_Sem1\Poo\ProiecteVisual\ProiectFaza1\ProiectFaza1\Locatie.cpp(3,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\Users\xxxme\Desktop\ASE\An2_Sem1\Poo\ProiecteVisual\ProiectFaza1\ProiectFaza1\Locatie.h(4,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\Users\xxxme\Desktop\ASE\An2_Sem1\Poo\ProiecteVisual\ProiectFaza1\ProiectFaza1\Eveniment.h(4,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\Users\xxxme\Desktop\ASE\An2_Sem1\Poo\ProiecteVisual\ProiectFaza1\ProiectFaza1\Eveniment.h(17): warning C4091: 'typedef ': ignored on left of 'Eveniment::Data' when no variable is declared
+C:\Users\xxxme\Desktop\ASE\An2_Sem1\Poo\ProiecteVisual\ProiectFaza1\ProiectFaza1\Locatie.h(5,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\xxxme\Desktop\ASE\An2_Sem1\Poo\ProiecteVisual\ProiectFaza1\ProiectFaza1\Eveniment.h(5,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\xxxme\Desktop\ASE\An2_Sem1\Poo\ProiecteVisual\ProiectFaza1\ProiectFaza1\Eveniment.h(13,2): warning C4091: 'typedef ': ignored on left of 'Data' when no variable is declared
   Source.cpp
-C:\Users\xxxme\Desktop\ASE\An2_Sem1\Poo\ProiecteVisual\ProiectFaza1\ProiectFaza1\Source.cpp(43,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\Users\xxxme\Desktop\ASE\An2_Sem1\Poo\ProiecteVisual\ProiectFaza1\ProiectFaza1\Locatie.h(4,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\Users\xxxme\Desktop\ASE\An2_Sem1\Poo\ProiecteVisual\ProiectFaza1\ProiectFaza1\Eveniment.h(4,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\Users\xxxme\Desktop\ASE\An2_Sem1\Poo\ProiecteVisual\ProiectFaza1\ProiectFaza1\Eveniment.h(17): warning C4091: 'typedef ': ignored on left of 'Eveniment::Data' when no variable is declared
-C:\Users\xxxme\Desktop\ASE\An2_Sem1\Poo\ProiecteVisual\ProiectFaza1\ProiectFaza1\Source.cpp(44,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\Users\xxxme\Desktop\ASE\An2_Sem1\Poo\ProiecteVisual\ProiectFaza1\ProiectFaza1\Source.cpp(45,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\xxxme\Desktop\ASE\An2_Sem1\Poo\ProiecteVisual\ProiectFaza1\ProiectFaza1\Source.cpp(3,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\xxxme\Desktop\ASE\An2_Sem1\Poo\ProiecteVisual\ProiectFaza1\ProiectFaza1\Locatie.h(5,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\xxxme\Desktop\ASE\An2_Sem1\Poo\ProiecteVisual\ProiectFaza1\ProiectFaza1\Eveniment.h(5,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\xxxme\Desktop\ASE\An2_Sem1\Poo\ProiecteVisual\ProiectFaza1\ProiectFaza1\Eveniment.h(13,2): warning C4091: 'typedef ': ignored on left of 'Data' when no variable is declared
+C:\Users\xxxme\Desktop\ASE\An2_Sem1\Poo\ProiecteVisual\ProiectFaza1\ProiectFaza1\Source.cpp(4,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\xxxme\Desktop\ASE\An2_Sem1\Poo\ProiecteVisual\ProiectFaza1\ProiectFaza1\Source.cpp(5,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
   Generating Code...
-C:\Users\xxxme\Desktop\ASE\An2_Sem1\Poo\ProiecteVisual\ProiectFaza1\ProiectFaza1\Locatie.cpp(376): warning C4172: returning address of local variable or temporary: copie
-C:\Users\xxxme\Desktop\ASE\An2_Sem1\Poo\ProiecteVisual\ProiectFaza1\ProiectFaza1\Eveniment.cpp(97): warning C4715: 'Eveniment::validareData': not all control paths return a value
+C:\Users\xxxme\Desktop\ASE\An2_Sem1\Poo\ProiecteVisual\ProiectFaza1\ProiectFaza1\Locatie.cpp(479): warning C4172: returning address of local variable or temporary: copie
   ProiectFaza1.vcxproj -> C:\Users\xxxme\Desktop\ASE\An2_Sem1\Poo\ProiecteVisual\ProiectFaza1\x64\Debug\ProiectFaza1.exe

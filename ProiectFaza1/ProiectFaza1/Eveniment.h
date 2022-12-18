@@ -1,24 +1,28 @@
 #pragma once
 #include <iostream>
+#include <string>
 #include <string.h>
 #include "Bilet.h";
 
 using namespace std;
 
+typedef struct Data
+{
+	int an, luna, zi;
+	int ora, minut;
+};
+
 class Eveniment
 {
 private:
 	string denumire;
-
-	typedef struct Data
-	{
-		int an, luna, zi;
-		int ora, minut;
-	};
-
 	Data data;
-	Bilet** bilete;
+	Bilet* bilete;
 	int nrBilete;
+	int nrZone;
+	char** zone;
+	int nrLocuriZona;
+	int* locZ;//locuri ocupate din fiecare zona
 	static int evTot;//numarul de evenimente care exista
 
 public:
@@ -30,18 +34,26 @@ public:
 	~Eveniment();
 
 	int validareData(Data x);
-	int bileteRamase(Bilet** bilete);
+	int* cumparaBilet(int i);
 
 	void setDenumire(string denumire);
 	void setData(Data data);
-	void setBilete(Bilet** bilete, int nrBilete);
+	void setBilete(Bilet* bilete, int nrBilete);
 	void setNrBilete(int nrBilete);
+	void setNrZone(int nrZone);
+	void setZone(char** zone, int nrZone);
+	void setNrLocuriZona(int nrLocuriZona);
+	void setLocZ(int* locZ, int nrZone);
 	void setEvTot(int evTot);
 
 	string getDenumire();
 	Data getData();
-	Bilet** getBilete();
+	Bilet* getBilete();
 	int getNrBilete();
+	int getNrZone();
+	char** getZone();
+	int getNrLocuriZona();
+	int* getLocZ();
 	static int getEvTot();
 
 	Eveniment& operator=(const Eveniment& e);

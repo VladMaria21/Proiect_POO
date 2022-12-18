@@ -16,6 +16,10 @@ Eveniment::Eveniment()
 	data.minut = 0;
 	bilete = nullptr;
 	nrBilete = 0;
+	nrZone = 0;
+	zone = nullptr;
+	nrLocuriZona = 0;
+	locZ = nullptr;
 	evTot++;
 }
 
@@ -29,6 +33,10 @@ Eveniment::Eveniment(string denumire, Data data)
 	this->data.minut = data.minut;
 	bilete = nullptr;
 	nrBilete = 0;
+	nrZone = 0;
+	zone = nullptr;
+	nrLocuriZona = 0;
+	locZ = nullptr;
 	evTot++;
 }
 
@@ -40,20 +48,62 @@ Eveniment::Eveniment(const Eveniment& e)
 	data.zi = e.data.zi;
 	data.ora = e.data.ora;
 	data.minut = e.data.minut;
-	if (bilete != nullptr)
+
+	if (e.nrBilete > 0)
 	{
-		for (int i = 0; i < nrBilete; i++)
+		if (e.bilete != nullptr)
 		{
-			delete[]bilete[i];//problemo
+			bilete = new Bilet[e.nrBilete];
+			nrBilete = e.nrBilete;
+			for (int i = 0; i < e.nrBilete; i++)
+			{
+				bilete[i] = e.bilete[i];
+			}
 		}
-		delete[]bilete;
 	}
-	nrBilete = e.nrBilete;
-	bilete = new Bilet * [nrBilete];
-	for (int i = 0; i < nrBilete; i++)
+	else
 	{
-		bilete[i] = e.bilete[i];
+		bilete = nullptr;
+		nrBilete = 0;
 	}
+
+	if (e.nrZone > 0)
+	{
+		if (e.zone != nullptr)
+		{
+			zone = new char* [e.nrZone];
+			nrZone = e.nrZone;
+			for (int i = 0; i < e.nrZone; i++)
+			{
+				zone[i] = new char[strlen(e.zone[i]) + 1];
+				strcpy_s(zone[i], strlen(e.zone[i]) + 1, e.zone[i]);
+			}
+		}
+	}
+	else
+	{
+		zone = nullptr;
+		nrZone = 0;
+	}
+
+	if (e.nrLocuriZona > 0)
+	{
+		if (e.locZ != nullptr)
+		{
+			locZ = new int[e.nrLocuriZona];
+			nrZone = e.nrZone;
+			for (int i = 0; i < e.nrLocuriZona; i++)
+			{
+				locZ[i] = e.locZ[i];
+			}
+		}
+	}
+	else
+	{
+		locZ = nullptr;
+		nrLocuriZona = 0;
+	}
+
 	evTot = e.evTot;
 }
 
@@ -61,13 +111,23 @@ Eveniment::~Eveniment()
 {
 	if (bilete != nullptr)
 	{
-		for (int i = 0; i < nrBilete; i++)
-		{
-			delete[]bilete[i];
-		}
 		delete[]bilete;
+		bilete = nullptr;
 	}
 	nrBilete = 0;
+	if (zone != nullptr)
+	{
+		delete[]zone;
+		zone = nullptr;
+	}
+	nrZone = 0;
+	if (locZ != nullptr)
+	{
+		delete[]locZ;
+		locZ = nullptr;
+	}
+	nrLocuriZona = 0;
+	evTot--;
 }
 
 int Eveniment::validareData(Data x)
@@ -96,14 +156,14 @@ int Eveniment::validareData(Data x)
 	else return 0;
 }
 
-int Eveniment::bileteRamase(Bilet** bilete)
+int* Eveniment::cumparaBilet(int i)
 {
-	int cont=0;
-	for (int i = 0; i < nrBilete; i++)
+	if (locZ[i] <= nrLocuriZona)
 	{
-		if (bilete[i]->getRez() == 0)cont++;
+		cin >> bilete[nrBilete];
+		nrBilete++;
 	}
-	return cont;
+	return bilete[nrBilete - 1].getUid();
 }
 
 //setteri
@@ -123,16 +183,15 @@ void Eveniment::setData(Data data)
 	this->data.minut = data.minut;
 }
 
-void Eveniment::setBilete(Bilet** bilete, int nrBilete)
+void Eveniment::setBilete(Bilet* bilete, int nrBilete)
 {
 	if (this->bilete != nullptr)
 	{
-		for (int i = 0; i < this->nrBilete; i++)delete[]this->bilete[i];
 		delete[]this->bilete;
 		this->bilete = nullptr;
 	}
 	this->nrBilete = nrBilete;
-	this->bilete = new Bilet*[nrBilete];
+	this->bilete = new Bilet[nrBilete];
 	for (int i = 0; i < nrBilete; i++)
 	{
 		this->bilete[i] = bilete[i];
@@ -142,6 +201,47 @@ void Eveniment::setBilete(Bilet** bilete, int nrBilete)
 void Eveniment::setNrBilete(int nrBilete)
 {
 	this->nrBilete = nrBilete;
+}
+
+void Eveniment::setNrZone(int nrZone)
+{
+	this->nrZone = nrZone;
+}
+
+void Eveniment::setZone(char** zone, int nrZone)
+{
+	if (this->zone != nullptr)
+	{
+		delete[]this->zone;
+		this->zone = nullptr;
+	}
+	this->nrZone = nrZone;
+	this->zone = new char* [nrZone];
+	for (int i = 0; i < nrZone; i++)
+	{
+		this->zone[i] = new char[strlen(zone[i]) + 1];
+		strcpy_s(this->zone[i], strlen(zone[i]) + 1, zone[i]);
+	}
+}
+
+void Eveniment::setNrLocuriZona(int nrLocuriZona)
+{
+	this->nrLocuriZona = nrLocuriZona;
+}
+
+void Eveniment::setLocZ(int* locZ, int nrZone)
+{
+	if (this->locZ != nullptr)
+	{
+		delete[]this->locZ;
+		this->locZ = nullptr;
+	}
+	this->nrZone = nrZone;
+	this->locZ = new int[nrZone];
+	for (int i = 0; i < nrZone; i++)
+	{
+		this->locZ[i] = locZ[i];
+	}
 }
 
 void Eveniment::setEvTot(int evTot)
@@ -156,15 +256,15 @@ string Eveniment::getDenumire()
 	return denumire;
 }
 
-Eveniment::Data Eveniment::getData()
+Data Eveniment::getData()
 {
 	return data;
 }
 
-Bilet** Eveniment::getBilete()
+Bilet* Eveniment::getBilete()
 {
-	Bilet** copie;
-	copie = new Bilet * [nrBilete];
+	Bilet* copie;
+	copie = new Bilet[nrBilete];
 	for (int i = 0; i < nrBilete; i++)
 	{
 		copie[i] = bilete[i];
@@ -175,6 +275,39 @@ Bilet** Eveniment::getBilete()
 int Eveniment::getNrBilete()
 {
 	return nrBilete;
+}
+
+int Eveniment::getNrZone()
+{
+	return nrZone;
+}
+
+char** Eveniment::getZone()
+{
+	char** copie;
+	copie = new char* [nrZone];
+	for (int i = 0; i < nrZone; i++)
+	{
+		copie[i] = new char[strlen(zone[i]) + 1];
+		strcpy_s(copie[i], strlen(zone[i]) + 1, zone[i]);
+	}
+	return copie;
+}
+
+int Eveniment::getNrLocuriZona()
+{
+	return nrLocuriZona;
+}
+
+int* Eveniment::getLocZ()
+{
+	int* copie;
+	copie = new int[nrZone];
+	for (int i = 0; i < nrZone; i++)
+	{
+		copie[i] = locZ[i];
+	}
+	return copie;
 }
 
 int Eveniment::getEvTot()
@@ -192,45 +325,110 @@ Eveniment& Eveniment::operator=(const Eveniment& e)
 	data.zi = e.data.zi;
 	data.ora = e.data.ora;
 	data.minut = e.data.minut;
-	nrBilete = e.nrBilete;
 	if (bilete != nullptr)
 	{
-		for (int i = 0; i < nrBilete; i++)
+		delete[]bilete;
+		bilete = nullptr;
+	}
+
+	if (e.nrBilete > 0)
+	{
+		if (e.bilete != nullptr)
 		{
-			bilete[i] = e.bilete[i];
+			bilete = new Bilet[e.nrBilete];
+			for (int i = 0; i < nrBilete; i++)
+			{
+				bilete[i] = e.bilete[i];
+			}
 		}
 	}
+	else
+	{
+		bilete = nullptr;
+		nrBilete = 0;
+	}
+
+	if (zone != nullptr)
+	{
+		delete[]zone;
+		zone = nullptr;
+	}
+
+	if (e.nrZone > 0)
+	{
+		if (e.zone != nullptr)
+		{
+			zone = new char* [e.nrZone];
+			nrZone = e.nrZone;
+			for (int i = 0; i < e.nrZone; i++)
+			{
+				zone[i] = new char[strlen(e.zone[i]) + 1];
+				strcpy_s(zone[i], strlen(e.zone[i]) + 1, e.zone[i]);
+			}
+		}
+	}
+	else
+	{
+		zone = nullptr;
+		nrZone = 0;
+	}
+
+	if (locZ != nullptr)
+	{
+		delete[]locZ;
+		locZ = nullptr;
+	}
+
+	if (e.nrLocuriZona > 0)
+	{
+		if (e.locZ != nullptr)
+		{
+			locZ = new int[e.nrLocuriZona];
+			nrZone = e.nrZone;
+			for (int i = 0; i < e.nrLocuriZona; i++)
+			{
+				locZ[i] = e.locZ[i];
+			}
+		}
+	}
+	else
+	{
+		locZ = nullptr;
+		nrLocuriZona = 0;
+	}
+
 	evTot = e.evTot;
 	return *this;
 }
 
 ostream& operator<<(ostream& out, Eveniment e)
 {
-	out << "Numele evenimentului este: " << e.denumire<<endl;
+	out << "Numele evenimentului este: " << e.denumire << endl;
 	out << "Data la care va avea loc este: " << e.data.zi << "/" << e.data.luna << "/" << e.data.an << ", la ora " << e.data.ora << ":" << e.data.minut << endl;
 	out << "Biletele cumparate sunt: " << endl;
 	for (int i = 0; i < e.nrBilete; i++)
 	{
 		out << e.bilete[i] << endl;
 	}
-	out << "Numarul total de evenimente este: " << e.evTot;
+	out << "Numarul total de evenimente este: " << e.evTot<<endl;
 	return out;
 }
 
 istream& operator>>(istream& in, Eveniment& e)
 {
-	//validari!!!
 	cout << "Introduceti numele evenimentului: ";
 	in >> e.denumire;
+	cout << endl;
 	cout << "Introduceti data si ora de forma zi/luna/an ora:minut: ";
 	in >> e.data.zi >> e.data.luna >> e.data.an >> e.data.ora >> e.data.minut;
+	cout << endl;
 	return in;
 }
 
-Eveniment& Eveniment::operator++()//revizuit
+Eveniment& Eveniment::operator++()
 {
 	data.zi++;
-	if (validareData(data) == 0)//validareData functioneaza?
+	if (validareData(data) == 0)
 	{
 		data.zi = 1;
 		data.luna++;
@@ -247,7 +445,7 @@ Eveniment& Eveniment::operator++(int i)
 {
 	Eveniment copie = *this;
 	copie.data.zi++;
-	if (validareData(copie.data) == 0)//validareData functioneaza?
+	if (validareData(copie.data) == 0)
 	{
 		copie.data.zi = 1;
 		copie.data.luna++;

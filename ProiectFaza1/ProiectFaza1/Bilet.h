@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <string>
 #include <string.h>
 
 using namespace std;
@@ -21,7 +22,6 @@ public:
 	Bilet(const Bilet& b);
 	~Bilet();
 
-	//inca o metoda generica
 	int validareUid(int* copie);
 
 	void setTip(string tip);

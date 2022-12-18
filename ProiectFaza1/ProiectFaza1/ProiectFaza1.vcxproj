@@ -129,7 +129,9 @@
   <ItemGroup>
     <ClCompile Include="Bilet.cpp" />
     <ClCompile Include="Eveniment.cpp" />
-    <ClCompile Include="Locatie.cpp" />
+    <ClCompile Include="Locatie.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>

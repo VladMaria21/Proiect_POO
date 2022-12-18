@@ -6,7 +6,7 @@ using namespace std;
 
 int Locatie::locTot = 0;
 
-Locatie::Locatie():nrLocMax(0)
+Locatie::Locatie() :nrLocMax(0)
 {
 	tip = "";
 	nrZone = 0;
@@ -18,17 +18,29 @@ Locatie::Locatie():nrLocMax(0)
 	ev = nullptr;
 	nrEv = 0;
 	preturi = nullptr;
+	locTot++;
 }
 
-Locatie::Locatie(string tip, int nrZone, char** zone, int nrLocTot, int nrRanduriTot, int nrLocZona, int nrRanduriZona, float* preturi):nrLocMax(nrLocMax)
+Locatie::Locatie(string tip, int nrZone, char** zone, int nrLocTot, int nrRanduriTot, int nrLocZona, int nrRanduriZona, float* preturi) :nrLocMax(nrLocMax)
 {
 	this->tip = tip;
-	this->nrZone = nrZone;
-	this->zone = new char* [nrZone];
-	for (int i = 0; i < nrZone; i++)
+	if (nrZone > 0)
 	{
-		this->zone[i] = new char[strlen(zone[i]) + 1];
-		strcpy_s(this->zone[i], strlen(zone[i]) + 1, zone[i]);
+		if (zone != nullptr)
+		{
+			this->zone = new char* [nrZone];
+			this->nrZone = nrZone;
+			for (int i = 0; i < nrZone; i++)
+			{
+				this->zone[i] = new char[strlen(zone[i]) + 1];
+				strcpy_s(this->zone[i], strlen(zone[i]) + 1, zone[i]);
+			}
+		}
+	}
+	else
+	{
+		this->zone = nullptr;
+		this->nrZone = 0;
 	}
 	this->nrLocTot = nrLocTot;
 	this->nrRanduriTot = nrRanduriTot;
@@ -36,71 +48,122 @@ Locatie::Locatie(string tip, int nrZone, char** zone, int nrLocTot, int nrRandur
 	this->nrRanduriZona = nrRanduriZona;
 	ev = nullptr;
 	nrEv = 0;
-	for (int i = 0; i < nrZone; i++)
+	if (nrZone > 0)
 	{
-		this->preturi[i] = preturi[i];
+		if (preturi != nullptr)
+		{
+			this->preturi = new float[nrZone];
+			this->nrZone = nrZone;
+			for (int i = 0; i < nrZone; i++)
+			{
+				this->preturi[i] = preturi[i];
+			}
+		}
 	}
+	else
+	{
+		this->preturi = nullptr;
+		this->nrZone = 0;
+	}
+	locTot++;
 }
 
-Locatie::Locatie(const Locatie& l):nrLocMax(l.nrLocMax)
+Locatie::Locatie(const Locatie& l) :nrLocMax(l.nrLocMax)
 {
 	tip = l.tip;
-	nrZone = l.nrZone;
-	zone = new char* [nrZone];
-	for (int i = 0; i < nrZone; i++)
+	if (l.nrZone > 0)
 	{
-		zone[i] = new char[strlen(l.zone[i]) + 1];
-		strcpy_s(zone[i], strlen(l.zone[i]) + 1, l.zone[i]);
+		if (l.zone != nullptr)
+		{
+			zone = new char* [l.nrZone];
+			nrZone = l.nrZone;
+			for (int i = 0; i < l.nrZone; i++)
+			{
+				zone[i] = new char[strlen(l.zone[i]) + 1];
+				strcpy_s(zone[i], strlen(l.zone[i]) + 1, l.zone[i]);
+			}
+		}
+	}
+	else
+	{
+		zone = nullptr;
+		nrZone = 0;
 	}
 	nrLocTot = l.nrLocTot;
 	nrRanduriTot = l.nrRanduriTot;
 	nrLocZona = l.nrLocZona;
 	nrRanduriZona = l.nrRanduriZona;
-	if (ev != nullptr)
+
+	if (l.nrEv > 0)
 	{
-		for (int i = 0; i < nrEv; i++)
+		if (l.ev != nullptr)
 		{
-			delete[]ev[i];
+			ev = new Eveniment[l.nrEv];
+			nrEv = l.nrEv;
+			for (int i = 0; i < l.nrEv; i++)
+			{
+				ev[i] = l.ev[i];
+			}
 		}
-		delete[]ev;
-		ev = nullptr;
 	}
-	nrEv = l.nrEv;
-	ev = new Eveniment ** [nrEv];
-	for (int i = 0; i < nrEv; i++)
+	else
 	{
-		ev[i] = l.ev[i];
+		ev = nullptr;
+		nrEv = 0;
 	}
-	if (preturi != nullptr)delete[]preturi;
-	preturi = nullptr;
-	for (int i = 0; i < nrZone; i++)preturi[i] = l.preturi[i];
+	if (l.nrZone > 0)
+	{
+		if (l.preturi != nullptr)
+		{
+			preturi = new float[l.nrZone];
+			nrZone = l.nrZone;
+			for (int i = 0; i < nrZone; i++)
+			{
+				preturi[i] = l.preturi[i];
+			}
+		}
+	}
+	else
+	{
+		preturi = nullptr;
+		nrZone = 0;
+	}
 	locTot = l.locTot;
 }
 
 Locatie::~Locatie()
 {
+	if (zone != nullptr)
+	{
+		delete[]zone;
+		zone = nullptr;
+	}
+	nrZone = 0;
 	if (ev != nullptr)
 	{
-		for (int i = 0; i < nrEv; i++)
-		{
-			delete[]ev[i];
-		}
 		delete[]ev;
 		ev = nullptr;
 	}
 	nrEv = 0;
-	if (preturi != nullptr)delete[]preturi;
-	preturi = nullptr;
+	if (preturi != nullptr)
+	{
+		delete[]preturi;
+		preturi = nullptr;
+	}
+	nrZone = 0;
 }
 
 float Locatie::pretMediu(float* preturi)
 {
-	float medie=0;
-	for (int i = 0; i < nrZone; i++)
+	float medie = 0;
+	if (nrZone > 0)
 	{
-		medie += preturi[i];
+		for (int i = 0; i < nrZone; i++)
+		{
+			medie += preturi[i];
+		}
+		medie /= nrZone;
 	}
-	medie /= nrZone;
 	return medie;
 }
 
@@ -118,21 +181,17 @@ void Locatie::setNrZone(int nrZone)
 
 void Locatie::setZone(char** zone, int nrZone)
 {
-	if (zone != nullptr && nrZone > 0)
+	if (this->zone != nullptr)
 	{
-		if (this->zone != nullptr)
-		{
-			for (int i = 0; i < this->nrZone; i++) delete[]this->zone[i];
-			delete[]this->zone;
-			this->nrZone = 0;
-		}
-		this->nrZone = nrZone;
-		this->zone = new char* [nrZone];
-		for (int i = 0; i < nrZone; i++)
-		{
-			this->zone[i] = new char[strlen(zone[i]) + 1];
-			strcpy_s(this->zone[i], strlen(zone[i]) + 1, zone[i]);
-		}
+		delete[]this->zone;
+		this->zone = nullptr;
+	}
+	this->nrZone = nrZone;
+	this->zone = new char* [nrZone];
+	for (int i = 0; i < nrZone; i++)
+	{
+		this->zone[i] = new char[strlen(zone[i]) + 1];
+		strcpy_s(this->zone[i], strlen(zone[i]) + 1, zone[i]);
 	}
 }
 
@@ -156,19 +215,15 @@ void Locatie::setNrRanduriZona(int nrRanduriZona)
 	this->nrRanduriZona = nrRanduriZona;
 }
 
-void Locatie::setEv(Eveniment*** ev, int nrEv)
+void Locatie::setEv(Eveniment* ev, int nrEv)
 {
 	if (this->ev != nullptr)
 	{
-		for (int i = 0; i < nrEv; i++)
-		{
-			delete[]this->ev[i];
-		}
 		delete[]this->ev;
 		this->ev = nullptr;
 	}
 	this->nrEv = nrEv;
-	this->ev = new Eveniment **[nrEv];
+	this->ev = new Eveniment[nrEv];
 	for (int i = 0; i < nrEv; i++)
 	{
 		this->ev[i] = ev[i];
@@ -182,10 +237,17 @@ void Locatie::setNrEv(int nrEv)
 
 void Locatie::setPreturi(float* preturi, int nrZone)
 {
-	if (this->preturi != nullptr)delete[]this->preturi;
-	this->preturi = nullptr;
+	if (this->preturi != nullptr)
+	{
+		delete[]this->preturi;
+		this->preturi = nullptr;
+	}
 	this->nrZone = nrZone;
-	for (int i = 0; i < nrZone; i++)this->preturi[i] = preturi[i];
+	this->preturi = new float[nrZone];
+	for (int i = 0; i < nrZone; i++)
+	{
+		this->preturi[i] = preturi[i];
+	}
 }
 
 void Locatie::setLocTot(int locTot)
@@ -237,10 +299,10 @@ int Locatie::getNrRanduriZona()
 	return nrRanduriZona;
 }
 
-Eveniment*** Locatie::getEv()
+Eveniment* Locatie::getEv()
 {
-	Eveniment*** copie;
-	copie = new Eveniment * *[nrEv];
+	Eveniment* copie;
+	copie = new Eveniment[nrEv];
 	for (int i = 0; i < nrEv; i++)
 	{
 		copie[i] = ev[i];
@@ -274,53 +336,81 @@ int Locatie::getLocTot()
 Locatie& Locatie::operator=(const Locatie& l)
 {
 	tip = l.tip;
-	nrZone = l.nrZone;
-	zone = new char* [nrZone];
-	for (int i = 0; i < nrZone; i++)
+	if (l.nrZone > 0)
 	{
-		zone[i] = new char[strlen(l.zone[i]) + 1];
-		strcpy_s(zone[i], strlen(l.zone[i]) + 1, l.zone[i]);
+		if (l.zone != nullptr)
+		{
+			zone = new char* [l.nrZone];
+			nrZone = l.nrZone;
+			for (int i = 0; i < l.nrZone; i++)
+			{
+				zone[i] = new char[strlen(l.zone[i]) + 1];
+				strcpy_s(zone[i], strlen(l.zone[i]) + 1, l.zone[i]);
+			}
+		}
+	}
+	else
+	{
+		zone = nullptr;
+		nrZone = 0;
 	}
 	nrLocTot = l.nrLocTot;
 	nrRanduriTot = l.nrRanduriTot;
 	nrLocZona = l.nrLocZona;
 	nrRanduriZona = l.nrRanduriZona;
-	if (ev != nullptr)
+
+	if (l.nrEv > 0)
 	{
-		for (int i = 0; i < nrEv; i++)
+		if (l.ev != nullptr)
 		{
-			delete[]ev[i];
+			ev = new Eveniment[l.nrEv];
+			nrEv = l.nrEv;
+			for (int i = 0; i < l.nrEv; i++)
+			{
+				ev[i] = l.ev[i];
+			}
 		}
-		delete[]ev;
-		ev = nullptr;
 	}
-	nrEv = l.nrEv;
-	ev = new Eveniment * *[nrEv];
-	for (int i = 0; i < nrEv; i++)
+	else
 	{
-		ev[i] = l.ev[i];
+		ev = nullptr;
+		nrEv = 0;
 	}
-	if (preturi != nullptr)delete[]preturi;
-	preturi = nullptr;
-	for (int i = 0; i < nrZone; i++)preturi[i] = l.preturi[i];
+	if (l.nrZone > 0)
+	{
+		if (l.preturi != nullptr)
+		{
+			preturi = new float[l.nrZone];
+			nrZone = l.nrZone;
+			for (int i = 0; i < nrZone; i++)
+			{
+				preturi[i] = l.preturi[i];
+			}
+		}
+	}
+	else
+	{
+		preturi = nullptr;
+		nrZone = 0;
+	}
 	locTot = l.locTot;
 	return *this;
 }
 
 ostream& operator<<(ostream& out, Locatie l)
 {
-	out << "Tipul locatiei este: " << l.tip;
-	out << "Numarul de zone al locatiei este: " << l.nrZone;
+	out << "Tipul locatiei este: " << l.tip<<endl;
+	out << "Numarul de zone al locatiei este: " << l.nrZone<<endl;
 	out << "Acestea sunt: ";
 	for (int i = 0; i < l.nrZone; i++)
 	{
 		out << l.zone[i] << " ";
 	}
 	out << endl;
-	out << "Numarul total de locuri al locatiei este: " << l.nrLocTot;
-	out << "Numarul total de randuri al locatiei este: " << l.nrRanduriTot;
-	out << "Numarul de locuri al fiecarei zone este: " << l.nrLocZona;
-	out << "Numarul de randuri al fiecarei zone este: " << l.nrRanduriZona;
+	out << "Numarul total de locuri al locatiei este: " << l.nrLocTot<<endl;
+	out << "Numarul total de randuri al locatiei este: " << l.nrRanduriTot<<endl;
+	out << "Numarul de locuri al fiecarei zone este: " << l.nrLocZona<<endl;
+	out << "Numarul de randuri al fiecarei zone este: " << l.nrRanduriZona<<endl;
 	out << "Evenimentele existente sunt: " << endl;
 	for (int i = 0; i < l.nrEv; i++)
 	{
@@ -329,9 +419,9 @@ ostream& operator<<(ostream& out, Locatie l)
 	out << "Preturile biletelor sunt: " << endl;
 	for (int i = 0; i < l.nrZone; i++)
 	{
-		out << l.preturi[i] << " pentru zona " << l.zone[i]<<endl;
+		out << l.preturi[i] << " pentru zona " << l.zone[i] << endl;
 	}
-	out << "Numarul total de locatii este: " << l.locTot<<endl;
+	out << "Numarul total de locatii este: " << l.locTot << endl;
 	out << "Numarul maxim de locuri al locatiei este: " << l.nrLocMax << endl;
 	return out;
 }
@@ -340,22 +430,35 @@ istream& operator>>(istream& in, Locatie& l)
 {
 	cout << "Introduceti tipul locatiei: ";
 	in >> l.tip;
+	cout << endl;
 	cout << "Introduceti numarul de zone: ";
 	in >> l.nrZone;
+	cout << endl;
+	l.zone = new char* [l.nrZone];
 	cout << "Introduceti zonele: ";
+	char inter[256];
 	for (int i = 0; i < l.nrZone; i++)
 	{
-		in >> l.zone[i];
+		in >> inter;
+		l.zone[i] = new char[strlen(inter) + 1];
+		strcpy_s(l.zone[i], strlen(inter) + 1, inter);
+		cout << endl;
 	}
+	cout << endl;
 	cout << "Introduceti numarul total de locuri al locatiei: ";
 	in >> l.nrLocTot;
+	cout << endl;
 	cout << "Introduceti numarul total de randuri al locatiei: ";
 	in >> l.nrRanduriTot;
+	cout << endl;
 	cout << "Introduceti numarul de locuri al fiecarei zone: ";
 	in >> l.nrLocZona;
+	cout << endl;
 	cout << "Introduceti numarul de randuri al fiecarei zone: ";
 	in >> l.nrRanduriZona;
+	cout << endl;
 	cout << "Introduceti preturile biletelor pentru fiecare zona:";
+	l.preturi = new float[l.nrZone];
 	for (int i = 0; i < l.nrZone; i++)
 	{
 		cout << endl;

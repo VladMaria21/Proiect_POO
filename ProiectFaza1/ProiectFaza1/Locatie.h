@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <string>
 #include <string.h>
 #include "Eveniment.h";
 
@@ -15,7 +16,7 @@ private:
 	int nrRanduriTot;
 	int nrLocZona;
 	int nrRanduriZona;
-	Eveniment*** ev;
+	Eveniment* ev;
 	int nrEv;
 	float* preturi;//preturile in functie de zone
 	static int locTot;//numarul de locatii care exista
@@ -37,7 +38,7 @@ public:
 	void setNrRanduriTot(int nrRanduriTot);
 	void setNrLocZona(int nrLocZona);
 	void setNrRanduriZona(int nrRanduriZona);
-	void setEv(Eveniment*** ev, int nrEv);
+	void setEv(Eveniment* ev, int nrEv);
 	void setNrEv(int nrEv);
 	void setPreturi(float* preturi, int nrZone);
 	void setLocTot(int locTot);
@@ -49,7 +50,7 @@ public:
 	int getNrRanduriTot();
 	int getNrLocZona();
 	int getNrRanduriZona();
-	Eveniment*** getEv();
+	Eveniment* getEv();
 	int getNrEv();
 	float* getPreturi();
 	static int getLocTot();

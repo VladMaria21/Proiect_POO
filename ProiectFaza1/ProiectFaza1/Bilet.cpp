@@ -1,8 +1,6 @@
 #include <iostream>
 #include <string.h>
 #include "Bilet.h";
-//#include "Eveniment.h";
-//#include "Locatie.h";
 
 using namespace std;
 
@@ -55,7 +53,6 @@ Bilet::Bilet(string tip, int* cnp)
 			j = j - 2;
 		}
 	}
-	//this->uid = createUid();
 	rez = 1;
 }
 
@@ -77,41 +74,6 @@ Bilet::~Bilet()
 	uid = nullptr;
 	bileteTot--;
 }
-
-//int* Bilet::createUid()
-//{
-//	int copie=nrBilet;
-//	int lung=0;
-//	while (copie)
-//	{
-//		lung++;
-//		copie /= 10;
-//	}
-//	copie = nrBilet;
-//	int* v;
-//	v = new int[lung];
-//	for (int i = lung - 1; i >= 0; i--)
-//	{
-//		v[i] = copie % 10;
-//		copie /= 10;
-//	}
-//
-//	int* x;
-//	x = new int[lung + 6];//lungimea nr de bilete + 6 caractere din cnp
-//	int j = 6;
-//	for (int i = 0; i < lung+6; i++)
-//	{
-//		if (i < lung)x[i] = v[i];
-//		else
-//		{
-//			x[i] = cnp[j - 1];
-//			x[i + 1] = cnp[j];
-//			i++;
-//			j = j - 2;
-//		}
-//	}
-//	return x;
-//}
 
 int Bilet::validareUid(int* copie)
 {
@@ -221,13 +183,13 @@ Bilet& Bilet::operator=(const Bilet& b)
 
 ostream& operator<<(ostream& out, Bilet b)
 {
-	out << "Tipul biletului: " << b.tip<<endl;
+	out << "Tipul biletului: " << b.tip << endl;
 	out << "Uid-ul biletului: ";
 	for (int i = 0; i < b.lungUid; i++)out << b.uid[i];
 	out << endl;
 	if (b.rez == 0)out << "Biletul nu este rezervat" << endl;
 	else out << "Biletul este rezervat" << endl;
-	out << "Numarul total de bilete este: " << b.bileteTot;
+	out << "Numarul total de bilete este: " << b.bileteTot<<endl;
 	return out;
 }
 
@@ -235,15 +197,14 @@ istream& operator>>(istream& in, Bilet& b)
 {
 	cout << "Introduceti tipul biletului: ";
 	in >> b.tip;
+	cout << endl;
 	cout << "Introduceti cnp-ul: ";
 	char nr[14];
 	in >> nr;
-	for (int i = 0; i<13; i++)
+	for (int i = 0; i < 13; i++)
 	{
 		b.cnp[i] = nr[i] - 48;
 	}
-
-	if (b.uid != nullptr)b.uid = nullptr;
 
 	//generare uid
 	int copie = b.nrBilet;
@@ -279,6 +240,7 @@ istream& operator>>(istream& in, Bilet& b)
 		}
 	}
 
+	cout << endl;
 	cout << "Uid-ul biletului cumparat este: ";
 	for (int i = 0; i < b.lungUid; i++)cout << b.uid[i];
 	cout << endl;
